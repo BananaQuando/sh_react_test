@@ -25,7 +25,7 @@ export class PostStore implements IPostStore {
 	@observable title = "";
 	@observable body = "";
 
-	@action async getPost(){
+	async getPost(){
 		const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
 
 		const data: IResponce = await response.json();

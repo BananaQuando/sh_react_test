@@ -7,7 +7,7 @@ import Sidebar from './components/Sidebar'
 import PageAlbums from './components/PageAlbums';
 import PageUsers from './components/PageUsers';
 import PagePosts from './components/PagePosts';
-
+import HeaderContent from './components/HeaderContent';
 
 
 @observer
@@ -19,11 +19,14 @@ class App extends React.Component{
 					<Header />
 					<Sidebar />
 					<div className="content-wrapper">
-						<Switch>
-							<Route path="/albums" component={PageAlbums} />
-							<Route path="/users" component={PageUsers} />
-							<Route path="/posts" component={PagePosts} />
-						</Switch>
+						<HeaderContent />
+						<section className="content">
+							<Switch>
+								<Route path="/albums" component={PageAlbums} />
+								<Route path="/users" component={PageUsers} />
+								<Route path="/posts" component={PagePosts} />
+							</Switch>
+						</section>
 					</div>
 				</div>
 			</Router>

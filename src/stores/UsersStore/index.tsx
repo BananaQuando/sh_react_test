@@ -1,35 +1,42 @@
-import { observable, action, computed } from "mobx";
+import {
+		observable,
+		action,
+		// computed
+	} from "mobx";
 
 export interface IUsersStore {
-	userId: number;
-	id: number;
-	title: string;
-	body: string;
-}
-
-interface IResponce {
 	usersList: {
-		id: number,
+		userId: number,
 		name: string,
 		username: string,
-		email: string,
-		address: {
-			street:string,
-			suite: string,
-			city: string,
-			zipcode: string,
-			geo: {
-				lat: string,
-				lng: string
-			}
-		},
 		phone: string,
-		website: string,
-		company: {
-			name: string,
-			catchPhrase: string,
-			bs: string
+		email: string,
+		link: string,
+		company_name: string
+	}[];
+}
+
+interface IResponceItem {
+	id: number,
+	name: string,
+	username: string,
+	email: string,
+	address: {
+		street:string,
+		suite: string,
+		city: string,
+		zipcode: string,
+		geo: {
+			lat: string,
+			lng: string
 		}
+	},
+	phone: string,
+	website: string,
+	company: {
+		name: string,
+		catchPhrase: string,
+		bs: string
 	}
 }
 
@@ -39,15 +46,33 @@ export class UsersStore implements IUsersStore {
 		this.getUsers();
 	}
 
-	@observable userId = 0;
-	@observable id = 0;
-	@observable title = "";
-	@observable body = "";
+	@observable usersList = [{
+		userId: 0,
+		name: '',
+		username: '',
+		phone: '',
+		email: '',
+		link: '',
+		company_name: ''
+	}];
 
 	@action async getUsers(){
 		const response = await fetch('https://jsonplaceholder.typicode.com/users');
 
-		const data: IResponce = await response.json();
-		console.log(data);
+		const users = await response.json();
+		if (users){
+			users.forEach((user: IResponceItem) => {
+
+				this.usersList.push({
+					userId: user.id,
+					name: user.name,
+					phone: user.phone,
+					username: user.username,
+					email: user.email,
+					company_name: user.company.name,
+					link: `/users/${user.id}`,
+				})
+			});
+		}
 	}
 }

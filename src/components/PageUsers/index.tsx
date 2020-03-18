@@ -1,8 +1,9 @@
 import React from 'react';
 import { inject, observer } from "mobx-react";
 import { observable } from 'mobx';
-import { IUsersStore } from '../../stores/UsersStore'
-import { IHeaderContentStore } from '../../stores/HeaderContentStore'
+import { IUsersStore } from '../../stores/UsersStore';
+import { IHeaderContentStore } from '../../stores/HeaderContentStore';
+import { Link } from 'react-router-dom';
 import Table from '../Table';
 import Card from '../Card';
 
@@ -13,7 +14,7 @@ interface PageProps{
 
 interface tableFormat{
 	tableHead: string[]
-	tableBody: string[][]
+	tableBody: any[][]
 }
 
 @inject('usersStore')
@@ -53,8 +54,13 @@ class PageUsers extends React.Component <PageProps>{
 
 		usersList.forEach((el) => {
 			if (el.userId !== 0){
+				const userLink = `/users/${el.userId}`;
 				tableData.tableBody.push([
-					String(el.userId), `${el.name} (${el.username})`, el.company_name, el.phone, el.email
+					String(el.userId),
+					<><Link to={userLink}>{el.name}</Link> ({el.username})</>,
+					el.company_name,
+					el.phone,
+					el.email
 				]);
 			}
 		});

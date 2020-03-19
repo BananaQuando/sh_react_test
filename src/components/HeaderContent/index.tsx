@@ -1,6 +1,7 @@
 import React from 'react';
 import { inject, observer } from "mobx-react";
 import { IHeaderContentStore } from '../../stores/HeaderContentStore'
+import { Link } from 'react-router-dom';
 
 interface HeaderProps{
 	headerContentStore? : IHeaderContentStore
@@ -27,7 +28,7 @@ export default class Sidebar extends React.Component <HeaderProps> {
 									if (el.isCurrent){
 										return <li className="breadcrumb-item">{el.title}</li>
 									}else{
-										return <li className="breadcrumb-item"><a href={el.link}>{el.title}</a></li>
+										return <li className="breadcrumb-item"><Link to={el.link}>{el.title}</Link></li>
 									}
 								})}
 							</ol>

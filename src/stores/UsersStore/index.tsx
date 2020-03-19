@@ -3,6 +3,7 @@ import {
 		action,
 		// computed
 	} from "mobx";
+import { IUserResponce } from '../UserStore';
 
 export interface IUsersStore {
 	usersList: {
@@ -14,30 +15,6 @@ export interface IUsersStore {
 		link: string,
 		company_name: string
 	}[];
-}
-
-interface IResponceItem {
-	id: number,
-	name: string,
-	username: string,
-	email: string,
-	address: {
-		street:string,
-		suite: string,
-		city: string,
-		zipcode: string,
-		geo: {
-			lat: string,
-			lng: string
-		}
-	},
-	phone: string,
-	website: string,
-	company: {
-		name: string,
-		catchPhrase: string,
-		bs: string
-	}
 }
 
 export class UsersStore implements IUsersStore {
@@ -61,7 +38,7 @@ export class UsersStore implements IUsersStore {
 
 		const users = await response.json();
 		if (users){
-			users.forEach((user: IResponceItem) => {
+			users.forEach((user: IUserResponce) => {
 
 				this.usersList.push({
 					userId: user.id,

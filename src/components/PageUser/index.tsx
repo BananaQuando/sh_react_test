@@ -24,7 +24,9 @@ export default class PageUser extends React.Component<PageProps>{
 
 		const { userID } = this.props.match.params;
 
-		this.props.userStore.getUser(userID);		
+		this.props.userStore.getUser(userID);
+		const test:string = 'test';
+		console.log(test);
 	}
 
 	setSeoData(){

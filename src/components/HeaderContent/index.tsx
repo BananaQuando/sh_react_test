@@ -24,11 +24,11 @@ export default class Sidebar extends React.Component <HeaderProps> {
 						</div>
 						<div className="col-sm-6">
 							<ol className="breadcrumb float-sm-right">
-								{breadcrumbs.map(el => {
+								{breadcrumbs.map((el, index) => {
 									if (el.isCurrent){
-										return <li className="breadcrumb-item">{el.title}</li>
+										return <li key={index} className="breadcrumb-item">{el.title}</li>
 									}else{
-										return <li className="breadcrumb-item"><Link to={el.link}>{el.title}</Link></li>
+										return <li key={index} className="breadcrumb-item"><Link to={el.link}>{el.title}</Link></li>
 									}
 								})}
 							</ol>

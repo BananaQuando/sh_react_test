@@ -8,8 +8,8 @@ import Table from '../Table';
 import Card from '../Card';
 
 interface PageProps{
-	usersStore? : IUsersStore,
-	headerContentStore? : IHeaderContentStore,
+	usersStore: IUsersStore,
+	headerContentStore: IHeaderContentStore,
 }
 
 interface tableFormat{
@@ -28,8 +28,8 @@ class PageUsers extends React.Component <PageProps>{
 	};
 
 	setSeoData(){
-		this.props.headerContentStore!.setTitie('Пользователи');
-		this.props.headerContentStore!.setBreadcrumbs([
+		this.props.headerContentStore.setTitie('Пользователи');
+		this.props.headerContentStore.setBreadcrumbs([
 			{
 				title: 'Главная',
 				link: '/',
@@ -45,7 +45,7 @@ class PageUsers extends React.Component <PageProps>{
 
 	@observable formatTableData() {
 
-		const { usersList } = this.props.usersStore!;
+		const { usersList } = this.props.usersStore;
 
 		const tableData: tableFormat = {
 			tableHead: ['id', 'Имя', 'Название организации', 'Телефон', 'Email'],

@@ -5,11 +5,13 @@ import { IUserStore } from '../../stores/UserStore';
 import { IHeaderContentStore } from '../../stores/HeaderContentStore';
 
 interface PageProps{
-	userStore : IUserStore,
+	userStore: IUserStore,
 	match: {
-		userID: number
-	};
-	headerContentStore? : IHeaderContentStore,
+		params: {
+			userID: number
+		}
+	}
+	headerContentStore: IHeaderContentStore,
 }
 
 
@@ -18,18 +20,46 @@ interface PageProps{
 @observer
 export default class PageUser extends React.Component<PageProps>{
 
-
 	componentWillMount(){
 
-		const { userID } = this.props.match;
+		const { userID } = this.props.match.params;
 
-		this.props.userStore.getUser(userID);
+		this.props.userStore.getUser(userID);		
 	}
 
+	setSeoData(){
+
+		this.props.headerContentStore.setTitie(`Страница пользователя "${this.props.userStore.username}"`);
+		this.props.headerContentStore.setBreadcrumbs([
+			{
+				title: 'Главная',
+				link: '/',
+				isCurrent: false
+			},
+			{
+				title: 'Пользователи',
+				link: '/users',
+				isCurrent: false
+			},
+			{
+				title: `${this.props.userStore.username}`,
+				link: `/users/${this.props.userStore.id}`,
+				isCurrent: true
+			}
+		]);
+
+		return false;
+	}
+	
 	render() {
-		
+
+		this.setSeoData();
+
 		return (
-			<h1>user page1</h1>
+			<>
+
+				<h1 className={`test`}>user page1</h1>
+			</>
 		);
 	}
 }

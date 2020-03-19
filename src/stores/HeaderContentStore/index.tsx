@@ -17,10 +17,10 @@ export interface IHeaderContentStore {
 
 export class HeaderContentStore implements IHeaderContentStore {
 
-	@observable headingTitle = 'Главная';
+	@observable headingTitle = '';
 	@observable breadcrumbs = [
 		{
-			title: 'Глвная',
+			title: '',
 			link: '/',
 			isCurrent: true
 		}

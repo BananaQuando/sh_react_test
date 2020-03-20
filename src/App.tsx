@@ -24,12 +24,14 @@ class App extends React.Component{
 					<div className="content-wrapper">
 						<HeaderContent />
 						<section className="content">
-							<Switch>
-								<Route path="/albums" component={PageAlbums} />
-								<Route path="/users" exact component={PageUsers} />
-								<Route path="/users/:userID" component={PageUser} />
-								<Route path="/posts" component={PagePosts} />
-							</Switch>
+							<div className="container-fluid">
+								<Switch>
+									<Route path="/albums" component={PageAlbums} />
+									<Route path="/users" exact component={PageUsers} />
+									<Route path="/users/:userID" component={PageUser} />
+									<Route path="/posts" component={PagePosts} />
+								</Switch>
+							</div>
 						</section>
 					</div>
 				</div>

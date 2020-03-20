@@ -1,10 +1,11 @@
 import React from 'react';
 import { inject, observer } from "mobx-react";
-import { observable } from 'mobx';
-import { IUserStore } from '../../stores/UserStore';
+import { IUsersStore, IUserStore } from '../../stores/UsersStore/interfaces';
 import { IHeaderContentStore } from '../../stores/HeaderContentStore';
+import UserProfileCard from '../UserProfileCard';
 
 interface PageProps{
+	usersStore: IUsersStore,
 	userStore: IUserStore,
 	match: {
 		params: {
@@ -20,18 +21,19 @@ interface PageProps{
 @observer
 export default class PageUser extends React.Component<PageProps>{
 
-	componentWillMount(){
+	async componentDidMount(){
 
 		const { userID } = this.props.match.params;
 
-		this.props.userStore.getUser(userID);
-		const test:string = 'test';
-		console.log(test);
+		await this.props.usersStore.getUser(userID);
+		this.setSeoData();
 	}
 
 	setSeoData(){
 
-		this.props.headerContentStore.setTitie(`Страница пользователя "${this.props.userStore.username}"`);
+		const { id, username } = this.props.userStore;
+
+		this.props.headerContentStore.setTitie(`Страница пользователя "${username}"`);
 		this.props.headerContentStore.setBreadcrumbs([
 			{
 				title: 'Главная',
@@ -44,24 +46,24 @@ export default class PageUser extends React.Component<PageProps>{
 				isCurrent: false
 			},
 			{
-				title: `${this.props.userStore.username}`,
-				link: `/users/${this.props.userStore.id}`,
+				title: `${username}`,
+				link: `/users/${id}`,
 				isCurrent: true
 			}
 		]);
-
-		return false;
 	}
 	
 	render() {
 
-		this.setSeoData();
+		const { id } = this.props.userStore;
 
 		return (
-			<>
-
-				<h1 className={`test`}>user page1</h1>
-			</>
+			<div className="row">
+				<div className="col-md-3">
+					<UserProfileCard userID={id} />
+					<UserProfileCard userID={5} />
+				</div>
+			</div>
 		);
 	}
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from "mobx-react";
 import { observable } from 'mobx';
-import { IUsersStore } from '../../stores/UsersStore';
+import { IUsersStore } from '../../stores/UsersStore/interfaces';
 import { IHeaderContentStore } from '../../stores/HeaderContentStore';
 import { Link } from 'react-router-dom';
 import Table from '../Table';
@@ -52,15 +52,15 @@ class PageUsers extends React.Component <PageProps>{
 			tableBody: [],
 		};
 
-		usersList.forEach((el) => {
-			if (el.userId !== 0){
-				const userLink = `/users/${el.userId}`;
+		usersList.forEach((user) => {
+			if (user.id !== 0){
+				const userLink = `/users/${user.id}`;
 				tableData.tableBody.push([
-					String(el.userId),
-					<><Link to={userLink}>{el.name}</Link> ({el.username})</>,
-					el.company_name,
-					el.phone,
-					el.email
+					String(user.id),
+					<><Link to={userLink}>{user.name}</Link> ({user.username})</>,
+					user.company_name,
+					user.phone,
+					user.email
 				]);
 			}
 		});
@@ -70,15 +70,20 @@ class PageUsers extends React.Component <PageProps>{
 
 	componentWillMount() {
 
+		this.props.usersStore.getAllUsers();
 		this.setSeoData();
 	}
 
 	render() {
 
 		return (
-			<Card title="Test">
-				<Table tableData={this.formatTableData()}></Table>
-			</Card>
+			<div className="row">
+				<div className="col-sm-12">
+					<Card title='Test' cardBodyClass='p-0'>
+						<Table tableData={this.formatTableData()}></Table>
+					</Card>
+				</div>
+			</div>
 		);
 	}
 }

@@ -3,53 +3,60 @@ import {
 		action,
 		// computed
 	} from "mobx";
-import { IUserResponce } from '../UserStore';
-
-export interface IUsersStore {
-	usersList: {
-		userId: number,
-		name: string,
-		username: string,
-		phone: string,
-		email: string,
-		link: string,
-		company_name: string
-	}[];
-}
+import { IUserResponce, IUserStore, IUsersStore } from './interfaces';
 
 export class UsersStore implements IUsersStore {
 
-	constructor(){
-		this.getUsers();
-	}
+	@observable usersList: IUserStore[] = [];
 
-	@observable usersList = [{
-		userId: 0,
-		name: '',
-		username: '',
-		phone: '',
-		email: '',
-		link: '',
-		company_name: ''
-	}];
-
-	@action async getUsers(){
+	@action async getAllUsers(){
 		const response = await fetch('https://jsonplaceholder.typicode.com/users');
 
 		const users = await response.json();
 		if (users){
 			users.forEach((user: IUserResponce) => {
-
-				this.usersList.push({
-					userId: user.id,
-					name: user.name,
-					phone: user.phone,
-					username: user.username,
-					email: user.email,
-					company_name: user.company.name,
-					link: `/users/${user.id}`,
-				})
+				
+				this.usersList[user.id] = this.formatUserResponce(user);
 			});
 		}
+	}
+
+	formatUserResponce(responce: IUserResponce){
+
+		return {
+			id: responce.id,
+			username: responce.username,
+			company: responce.company,
+			name: responce.name,
+			phone: responce.phone,
+			email: responce.email,
+			website: responce.website,
+			address: responce.address,
+			link: `/users/${responce.id}`,
+			company_name: responce.company.name
+		}
+	}
+
+	@action async getUser(userID: number) {
+
+		if (this.usersList[userID]){
+			return this.usersList[userID];
+		}else{
+			const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userID}`);
+			const data: IUserResponce = await response.json();
+
+
+		}
+
+		
+
+		// this.id = data.id;
+		// this.name = data.name;
+		// this.username = data.username;
+		// this.address = data.address;
+		// this.company = data.company;
+		// this.email = data.email;
+		// this.phone = data.phone;
+		// this.website = data.website;
 	}
 }

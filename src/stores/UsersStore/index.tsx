@@ -3,11 +3,11 @@ import {
 		action,
 		// computed
 	} from "mobx";
-import { IUserResponce, IUserStore, IUsersStore } from './interfaces';
+import { IUserResponce, IUserStore, IUsersStore, IUsersList } from './interfaces';
 
 export class UsersStore implements IUsersStore {
 
-	@observable usersList: IUserStore[] = [];
+	@observable usersList:IUsersList = {};
 
 	@action async getAllUsers(){
 		const response = await fetch('https://jsonplaceholder.typicode.com/users');
@@ -21,7 +21,7 @@ export class UsersStore implements IUsersStore {
 		}
 	}
 
-	formatUserResponce(responce: IUserResponce){
+	formatUserResponce(responce: IUserResponce): IUserStore{
 
 		return {
 			id: responce.id,
@@ -33,7 +33,7 @@ export class UsersStore implements IUsersStore {
 			website: responce.website,
 			address: responce.address,
 			link: `/users/${responce.id}`,
-			company_name: responce.company.name
+			company_name: responce.company ? responce.company.name : ''
 		}
 	}
 
@@ -45,18 +45,8 @@ export class UsersStore implements IUsersStore {
 			const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userID}`);
 			const data: IUserResponce = await response.json();
 
-
+			this.usersList[userID] = this.formatUserResponce(data);
+			return this.usersList[userID];
 		}
-
-		
-
-		// this.id = data.id;
-		// this.name = data.name;
-		// this.username = data.username;
-		// this.address = data.address;
-		// this.company = data.company;
-		// this.email = data.email;
-		// this.phone = data.phone;
-		// this.website = data.website;
 	}
 }

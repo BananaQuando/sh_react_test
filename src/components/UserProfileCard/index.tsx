@@ -1,25 +1,27 @@
 import React from 'react';
 import { inject, observer } from "mobx-react";
-import { IUserStore, IUsersStore } from '../../stores/UsersStore/interfaces';
+import { IUsersStore, IUserStore } from '../../stores/UsersStore/interfaces';
 import Card from '../Card';
+import { observable } from 'mobx';
 
 interface Props{
-	userStore?: IUserStore,
 	usersStore?: IUsersStore,
+	userStore?: IUserStore,
 	userID: number,
 }
 
 
-@inject('userStore')
-@inject('headerContentStore')
+@inject('usersStore')
 @observer
 export default class UserProfileCard extends React.Component<Props>{
 
-	userStore = {} as IUserStore;
+	@observable userStore = {} as IUserStore;
 
-	componentWillMount(){
+	async componentDidMount(){
+
 		const { userID } = this.props;
-		this.props.usersStore!.getUser(userID);
+
+		this.userStore = await this.props.usersStore!.getUser(userID);
 	}
 
 	render() {
@@ -30,7 +32,7 @@ export default class UserProfileCard extends React.Component<Props>{
 			phone,
 			website,
 			company
-		} = this.props.userStore!;
+		} = this.userStore;
 
 		return (
 
@@ -42,7 +44,7 @@ export default class UserProfileCard extends React.Component<Props>{
 				</div>
 				<h3 className="profile-username text-center">{ name }</h3>
 
-				<p className="text-muted text-center">{ company? company.name : '' }</p>
+				<p className="text-muted text-center">{ company ? company.name : '' }</p>
 
 				<ul className="list-group list-group-unbordered mb-3">
 					<li className="list-group-item">

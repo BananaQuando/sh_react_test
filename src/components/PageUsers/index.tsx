@@ -52,9 +52,11 @@ class PageUsers extends React.Component <PageProps>{
 			tableBody: [],
 		};
 
-		usersList.forEach((user) => {
-			if (user.id !== 0){
+		for (const id in usersList) {
+			if (usersList.hasOwnProperty(id)) {
+				const user = usersList[id];
 				const userLink = `/users/${user.id}`;
+
 				tableData.tableBody.push([
 					String(user.id),
 					<><Link to={userLink}>{user.name}</Link> ({user.username})</>,
@@ -63,12 +65,12 @@ class PageUsers extends React.Component <PageProps>{
 					user.email
 				]);
 			}
-		});
+		}
 
 		return tableData;
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 
 		this.props.usersStore.getAllUsers();
 		this.setSeoData();

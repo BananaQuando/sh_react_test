@@ -48,8 +48,12 @@ export interface IUserStore {
 	link: string,
 }
 
+export interface IUsersList {
+	[key: number] : IUserStore
+}
+
 export interface IUsersStore {
-	usersList: IUserStore[];
+	usersList: IUsersList,
 	getUser: Function,
 	getAllUsers: Function
 }

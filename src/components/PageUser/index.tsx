@@ -1,37 +1,35 @@
 import React from 'react';
 import { inject, observer } from "mobx-react";
-import { IUsersStore, IUserStore } from '../../stores/UsersStore/interfaces';
+import { IUsersStore } from '../../stores/UsersStore/interfaces';
 import { IHeaderContentStore } from '../../stores/HeaderContentStore';
 import UserProfileCard from '../UserProfileCard';
 
 interface PageProps{
-	usersStore: IUsersStore,
-	userStore: IUserStore,
+	usersStore: IUsersStore;
 	match: {
 		params: {
-			userID: number
+			userID: number;
 		}
 	}
-	headerContentStore: IHeaderContentStore,
+	headerContentStore: IHeaderContentStore;
 }
 
 
-@inject('userStore')
+@inject('usersStore')
 @inject('headerContentStore')
 @observer
 export default class PageUser extends React.Component<PageProps>{
 
-	async componentDidMount(){
+	componentDidMount(){
 
 		const { userID } = this.props.match.params;
 
-		await this.props.usersStore.getUser(userID);
-		this.setSeoData();
+		this.setSeoData(userID);
 	}
 
-	setSeoData(){
+	async setSeoData(userID: number){
 
-		const { id, username } = this.props.userStore;
+		const { id, username } = await this.props.usersStore.getUser(userID);
 
 		this.props.headerContentStore.setTitie(`Страница пользователя "${username}"`);
 		this.props.headerContentStore.setBreadcrumbs([
@@ -55,13 +53,17 @@ export default class PageUser extends React.Component<PageProps>{
 	
 	render() {
 
-		const { id } = this.props.userStore;
+		const { userID } = this.props.match.params;
 
 		return (
 			<div className="row">
 				<div className="col-md-3">
-					<UserProfileCard userID={id} />
+					<UserProfileCard userID={userID} />
 					<UserProfileCard userID={5} />
+				</div>
+				<div className="col-md-3">
+					<UserProfileCard userID={2} />
+					<UserProfileCard userID={9} />
 				</div>
 			</div>
 		);

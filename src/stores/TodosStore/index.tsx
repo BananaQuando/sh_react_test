@@ -7,15 +7,16 @@ import { ITodosResponce, ITodoStore, ITodosList, ITodosStore } from './interface
 
 export class TodosStore implements ITodosStore {
 
-	@observable todosList:ITodosList = [];
+	@observable todosList = {} as ITodosList;
 
-	formatTodoResponce(responce: ITodosResponce): ITodoStore{
-
+	async formatTodoResponce(responce: ITodosResponce): Promise<ITodoStore>{
+		
 		return {
 			id: responce.id,
 			userID: responce.userId,
 			title: responce.title,
-			completed: responce.completed
+			completed: responce.completed,
+			
 		}
 	}
 
@@ -25,9 +26,13 @@ export class TodosStore implements ITodosStore {
 			return this.todosList[userID];
 		}else{
 			const response = await fetch(`https://jsonplaceholder.typicode.com/todos?userId=${userID}`);
-			const data: ITodosResponce = await response.json();
-			console.log(data)
-			this.todosList[userID].push(this.formatTodoResponce(data));
+			const data = await response.json();
+
+			if (!this.todosList[userID]) this.todosList[userID] = [];
+			data.forEach(async (el: ITodosResponce)  => {
+				this.todosList[userID].push(await this.formatTodoResponce(el));
+			});
+			
 			return this.todosList[userID];
 		}
 	}

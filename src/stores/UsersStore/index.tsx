@@ -39,7 +39,6 @@ export class UsersStore implements IUsersStore {
 
 	@action async getUser(userID: number) {
 
-		console.log(this.usersList[userID])
 		if (this.usersList[userID]){
 			return this.usersList[userID];
 		}else{

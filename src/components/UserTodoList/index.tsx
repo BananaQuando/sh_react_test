@@ -34,8 +34,8 @@ export default class UserTodoList extends React.Component<Props>{
 								<td>{ todoItem.id }</td>
 								<td>
 									<div className="icheck-primary">
-										<input type="checkbox" value="" id="check1" defaultChecked={todoItem.completed} />
-										<label htmlFor="check1"></label>
+										<input type="checkbox" value="" id={`check-${index}`} defaultChecked={todoItem.completed} />
+										<label htmlFor={`check-${index}`}></label>
 									</div>
 								</td>
 								<td className="mailbox-subject">

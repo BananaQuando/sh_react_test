@@ -1,0 +1,55 @@
+import React from 'react';
+import { inject, observer } from "mobx-react";
+import { ITodoStore, ITodosStore } from '../../stores/TodosStore/interfaces';
+import Card from '../Card';
+import UserTodoList from '../UserTodoList'
+import { observable } from 'mobx';
+
+interface Props{
+	userID: number,
+	todosStore?: ITodosStore,
+	todoStore?: ITodoStore,
+}
+
+
+@inject('usersStore')
+@observer
+export default class UserContentTabs extends React.Component<Props>{
+
+	render() {
+
+		const tabs = [
+			{
+				title: 'Todos',
+				link: '#todos'
+			},
+			{
+				title: 'Posts',
+				link: '#posts',
+			},
+			{
+				title: 'Albums',
+				link: '#albums'
+			}
+		]
+
+		const { userID } = this.props;
+
+		return (
+			
+			<Card cardHeaderClass='p-2' cardTabs={tabs}>
+				<div className="tab-content">
+					<div className="active tab-pane" id="todos">
+						<UserTodoList userID={userID} />
+					</div>
+					<div className="tab-pane" id="posts">
+						2
+					</div>
+					<div className="tab-pane" id="albums">
+						3
+					</div>
+				</div>
+			</Card>
+		);
+	}
+}

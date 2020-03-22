@@ -3,6 +3,8 @@ import { inject, observer } from "mobx-react";
 import { IUsersStore } from '../../stores/UsersStore/interfaces';
 import { IHeaderContentStore } from '../../stores/HeaderContentStore';
 import UserProfileCard from '../UserProfileCard';
+import UserAboutCard from '../UserAboutCard';
+import UserContentTabs from '../UserContentTabs'
 
 interface PageProps{
 	usersStore: IUsersStore;
@@ -59,11 +61,10 @@ export default class PageUser extends React.Component<PageProps>{
 			<div className="row">
 				<div className="col-md-3">
 					<UserProfileCard userID={userID} />
-					<UserProfileCard userID={5} />
+					<UserAboutCard userID={userID} />
 				</div>
-				<div className="col-md-3">
-					<UserProfileCard userID={2} />
-					<UserProfileCard userID={9} />
+				<div className="col-md-9">
+					<UserContentTabs userID={userID} />
 				</div>
 			</div>
 		);

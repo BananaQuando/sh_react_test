@@ -27,14 +27,16 @@ export default class CommentsList extends React.Component<Props>{
 		
 		return (
 			<>
-				{ this.commentStore.map((comment, index) => 
-				<div key={index}>
-					<hr />
-					<h4>{comment.name}</h4>
-					<h5>{comment.email}</h5>
-					{comment.body}
-				</div>) }
-				<hr />
+				{ this.commentStore.map((comment, index) => (
+					<div key={index} className="info-box">
+						<span className="info-box-icon bg-danger"><i className="far fa-star"></i></span>
+						<div className="info-box-content">
+						<span className="info-box-number">{comment.name}</span>
+						<span className="info-box-text"><a href={`mailto:${comment.email}`}>{comment.email}</a></span>
+						<p>{comment.body}</p>
+						</div>
+					</div>
+				))}
 			</>
 		);
 	}

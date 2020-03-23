@@ -22,7 +22,7 @@ export default class PostBlock extends React.Component<CardProps> {
 
 	@observable postStore = {} as IPostStore;
 	@observable userStore = {} as IUserStore;
-	@observable loadComments = true;
+	@observable loadComments = false;
 
 	async componentDidMount(){
 
@@ -53,7 +53,7 @@ export default class PostBlock extends React.Component<CardProps> {
 				</div>
 				<h5>{ title }</h5>
 				<p>{body}</p>
-				<p>
+				<p className='clearfix'>
 					<span className="float-right">
 						<button onClick={() => { this.loadComments = this.loadComments ? false : true; }} className="link-black text-sm">
 							<i className="far fa-comments mr-1"></i> Comments

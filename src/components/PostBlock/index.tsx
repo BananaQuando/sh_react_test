@@ -4,6 +4,7 @@ import { IPostStore, IPostsStore } from '../../stores/PostsStore/interfaces';
 import { IUsersStore, IUserStore } from '../../stores/UsersStore/interfaces';
 import { observable } from 'mobx';
 import { Link } from 'react-router-dom';
+import CommentsList from '../CommentsList';
 
 interface CardProps{
 	postID: number;
@@ -11,6 +12,7 @@ interface CardProps{
 	postStore?: IPostStore;
 	usersStore?: IUsersStore;
 	userStore?: IUserStore;
+	loadComments?: boolean
 }
 
 @inject('postsStore')
@@ -20,6 +22,7 @@ export default class PostBlock extends React.Component<CardProps> {
 
 	@observable postStore = {} as IPostStore;
 	@observable userStore = {} as IUserStore;
+	@observable loadComments = true;
 
 	async componentDidMount(){
 
@@ -31,6 +34,7 @@ export default class PostBlock extends React.Component<CardProps> {
 
 		this.userStore = await this.props.usersStore!.getUser(userID);
 	}
+
 
 	render() {
 
@@ -51,11 +55,13 @@ export default class PostBlock extends React.Component<CardProps> {
 				<p>{body}</p>
 				<p>
 					<span className="float-right">
-						<a href="#ad" className="link-black text-sm">
-							<i className="far fa-comments mr-1"></i> Comments (5)
-						</a>
+						<button onClick={() => { this.loadComments = this.loadComments ? false : true; }} className="link-black text-sm">
+							<i className="far fa-comments mr-1"></i> Comments
+						</button>
 					</span>
 				</p>
+
+				{ this.loadComments ? <CommentsList postID={postID} /> : ''}
 
 				<input className="form-control form-control-sm" type="text" placeholder="Type a comment" />
 			</div>

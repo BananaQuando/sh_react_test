@@ -1,28 +1,30 @@
-export interface IPostsResponce {
+export interface ICommentsResponce {
 	id: number;
-	userId: number;
-	title: string;
+	postId: number;
+	name: string;
+	email: string;
 	body: string;
 }
 
-export interface IPostStore {
+export interface ICommentStore {
 	id: number;
-	userID: number;
-	title: string;
+	postID: number;
+	name: string;
+	email: string;
 	body: string;
 }
 
-export interface IPostsList {
-	[key: number]: IPostStore
+export interface ICommentsList {
+	[key: number]: ICommentStore
 }
 
-export interface IUsersPostsList {
-	[key: number]: IPostStore[]
+export interface IPostCommentsList {
+	[key: number]: ICommentStore[]
 }
 
-export interface IPostsStore {
-	postsList: IPostsList,
-	usersPostsList: IUsersPostsList,
-	getUserPosts: Function,
-	getPost: Function
+export interface ICommentsStore {
+	commentsList: ICommentsList,
+	postCommentsList: IPostCommentsList,
+	getPostComments: Function,
+	getComment: Function
 }

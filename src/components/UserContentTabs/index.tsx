@@ -2,7 +2,8 @@ import React from 'react';
 import { inject, observer } from "mobx-react";
 import { ITodoStore, ITodosStore } from '../../stores/TodosStore/interfaces';
 import Card from '../Card';
-import UserTodoList from '../UserTodoList'
+import UserTodoList from '../UserTodoList';
+import UserPostsList from '../UserPostsList';
 import { observable } from 'mobx';
 
 interface Props{
@@ -39,11 +40,11 @@ export default class UserContentTabs extends React.Component<Props>{
 			
 			<Card cardHeaderClass='p-2' cardTabs={tabs}>
 				<div className="tab-content">
-					<div className="active tab-pane" id="todos">
+					<div className="tab-pane" id="todos">
 						<UserTodoList userID={userID} />
 					</div>
-					<div className="tab-pane" id="posts">
-						2
+					<div className="tab-pane active" id="posts">
+						<UserPostsList userID={userID} />
 					</div>
 					<div className="tab-pane" id="albums">
 						3

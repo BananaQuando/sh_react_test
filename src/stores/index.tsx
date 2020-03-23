@@ -3,6 +3,7 @@ import { SidebarMenuStore } from './SidebarMenuStore';
 import { UsersStore } from './UsersStore';
 import { HeaderContentStore } from './HeaderContentStore';
 import { TodosStore } from './TodosStore';
+import { PostsStore } from './PostsStore';
 
 
 interface Stores {
@@ -15,4 +16,5 @@ export const stores: Stores = {
 	usersStore: new UsersStore(),
 	headerContentStore: new HeaderContentStore(),
 	todosStore: new TodosStore(),
+	postsStore: new PostsStore(),
 }

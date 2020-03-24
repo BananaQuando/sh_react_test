@@ -40,13 +40,13 @@ export default class UserContentTabs extends React.Component<Props>{
 			
 			<Card cardHeaderClass='p-2' cardTabs={tabs}>
 				<div className="tab-content">
-					<div className="tab-pane" id="todos">
+					<div className="tab-pane active" id="todos">
 						<UserTodoList userID={userID} />
 					</div>
 					<div className="tab-pane" id="posts">
 						<UserPostsList userID={userID} />
 					</div>
-					<div className="tab-pane active" id="albums">
+					<div className="tab-pane" id="albums">
 						<UserAlbumsList userID={userID} />
 					</div>
 				</div>

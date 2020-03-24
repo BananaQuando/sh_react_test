@@ -19,13 +19,14 @@ class App extends React.Component{
 		return (
 			<Router>
 				<div className="wrapper">
-					<Header />
+					{/* <Header /> */}
 					<Sidebar />
 					<div className="content-wrapper">
 						<HeaderContent />
 						<section className="content">
 							<div className="container-fluid">
 								<Switch>
+									<Route path="/" exact component={PageUsers} />
 									<Route path="/albums" component={PageAlbums} />
 									<Route path="/users" exact component={PageUsers} />
 									<Route path="/users/:userID" component={PageUser} />

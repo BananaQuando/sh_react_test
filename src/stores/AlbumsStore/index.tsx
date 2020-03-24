@@ -64,8 +64,6 @@ export class AlbumsStore implements IAlbumsStore {
 
 	@action async getAlbumPhotos(albumID: number){
 
-		console.log('get album photos')
-
 		if (this.albumsList[albumID] && this.albumsList[albumID]['photos'].length){
 			return this.albumsList[albumID]['photos'];
 		}else{

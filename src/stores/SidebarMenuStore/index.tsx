@@ -23,18 +23,6 @@ export class SidebarMenuStore implements ISidebarMenuStore {
 
 	@observable menuList = [
 		{
-			id: 1,
-			name: 'Posts',
-			link: '/posts',
-			icon: 'nav-icon far fa-list-alt'
-		},
-		{
-			id: 2,
-			name: 'Albums',
-			link: '/albums',
-			icon: 'nav-icon far fa-images'
-		},
-		{
 			id: 3,
 			name: 'Users',
 			link: '/users',

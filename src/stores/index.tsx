@@ -5,6 +5,7 @@ import { HeaderContentStore } from './HeaderContentStore';
 import { TodosStore } from './TodosStore';
 import { PostsStore } from './PostsStore';
 import { CommentsStore } from './CommentsStore';
+import { AlbumsStore } from './AlbumsStore';
 
 
 interface Stores {
@@ -19,4 +20,5 @@ export const stores: Stores = {
 	todosStore: new TodosStore(),
 	postsStore: new PostsStore(),
 	commentsStore: new CommentsStore(),
+	albumsStore: new AlbumsStore(),
 }

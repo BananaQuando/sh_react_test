@@ -4,7 +4,7 @@ import { ITodoStore, ITodosStore } from '../../stores/TodosStore/interfaces';
 import Card from '../Card';
 import UserTodoList from '../UserTodoList';
 import UserPostsList from '../UserPostsList';
-import { observable } from 'mobx';
+import UserAlbumsList from '../UserAlbumsList';
 
 interface Props{
 	userID: number,
@@ -43,11 +43,11 @@ export default class UserContentTabs extends React.Component<Props>{
 					<div className="tab-pane" id="todos">
 						<UserTodoList userID={userID} />
 					</div>
-					<div className="tab-pane active" id="posts">
+					<div className="tab-pane" id="posts">
 						<UserPostsList userID={userID} />
 					</div>
-					<div className="tab-pane" id="albums">
-						3
+					<div className="tab-pane active" id="albums">
+						<UserAlbumsList userID={userID} />
 					</div>
 				</div>
 			</Card>
